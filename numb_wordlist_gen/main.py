@@ -8,42 +8,38 @@ high_ = 4
 
 combinations = ['0' for i in range(high_)]
 
+
+def update_pos(_param, _combination, _pos, _file):
+    _combination[pos] = _param
+    _file.write(''.join(_combination) + '\n')
+
+
 for i in range(len(combinations), 0, -1):
     pos = i - 1
     if pos == 3:
         for f in list(schema):
-            combinations[pos] = f
-            file.write(''.join(combinations) + '\n')
+            update_pos(f, combinations, pos + 3, file)
     elif pos == 2:
         for f in list(schema):
             combinations[pos] = f
             for y in list(schema):
-                combinations[pos + 1] = y
-                file.write(''.join(combinations) + '\n')
+                update_pos(y, combinations, pos + 1, file)
     elif pos == 1:
         for f in list(schema):
             combinations[pos] = f
             for y in list(schema):
                 combinations[pos + 1] = y
                 for z in list(schema):
-                    combinations[pos + 2] = z
-                    file.write(''.join(combinations) + '\n')
+                    update_pos(z, combinations, pos + 2, file)
     elif pos == 0:
         for f in list(schema):
             combinations[pos] = f
             for y in list(schema):
                 combinations[pos + 1] = y
                 for z in list(schema):
-                    combinations[pos + 2] = z
-                    file.write(''.join(combinations) + '\n')
+                    update_pos(z, combinations, pos + 2, file)
                     for v in list(schema):
-                        combinations[pos + 3] = v
-                        file.write(''.join(combinations) + '\n')
-
-    file.write('*' * 10 + '\n')
-
-print(combinations)
-print(arr)
+                        update_pos(v, combinations, pos + 3, file)
 
 # # Driver Function
 # if __name__ == "__main__":
